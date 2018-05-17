@@ -19,6 +19,7 @@
 <script>
 import ToolBar from '~/components/admin/Toolbar.vue';
 export default {
+    middleware: 'auth',
     components: {
       ToolBar
     }

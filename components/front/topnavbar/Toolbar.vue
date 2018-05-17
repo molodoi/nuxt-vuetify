@@ -1,18 +1,16 @@
 <template>
     <v-toolbar fixed flat scroll-off-screen>
-        <v-icon>public</v-icon>
+        <img src='~static/travelling-around-earth.svg' height="32px" width="32px"/>
         <v-toolbar-title>Travelify</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
             <v-menu offset-y open-on-hover>
-            <v-btn slot="activator" flat hidden-sm-and-down>Devenir Hôte</v-btn>
+            <v-btn slot="activator" flat>Devenir Hôte</v-btn>
             <v-card>
             <v-list>
                 <v-list-tile  @click="">
                     <v-list-tile-content>
-                        <v-list-tile-title>
-                            Publier un logement
-                        </v-list-tile-title>
+                        <v-list-tile-title>Publier un logement</v-list-tile-title>
                         <v-list-tile-sub-title>Gagnez jusqu'à 1 763€ par mois en hébergeant des voyageurs à Paris.</v-list-tile-sub-title>
                     </v-list-tile-content>
                     <v-list-tile-action>
@@ -36,15 +34,18 @@
             
             </v-menu>
             <v-btn flat>Aide</v-btn>
-            <v-btn flat>Inscription</v-btn>
-            <v-btn flat @click="openSigninDialog">Connexion</v-btn>            
+            <nuxt-link to="admin/auth" class="btn btn--flat" tag="button" v-if="!user">
+                Inscription
+            </nuxt-link>
+            <v-btn flat v-if="!user" @click="setSigninDialog(true)">Connexion</v-btn> 
+            <v-btn flat v-if="user">Hello, {{user.email}}</v-btn>           
         </v-toolbar-items>
-        <SigninDialog :dialog="dialog" v-on:closeSigninDialog="closeSigninDialog" />
+        <SigninDialog :dialog="dialog" v-on:setSigninDialog="setSigninDialog" />
     </v-toolbar>
 </template>
 
 <script>
-import SigninDialog from '~/components/front/form/SigninDialog.vue'
+import SigninDialog from '~/components/front/form/SigninDialogForm.vue'
 export default {
     components: {
         SigninDialog
@@ -55,12 +56,12 @@ export default {
             dialog: false             
         }
     },
+    computed: {
+        user () { return (this.$store.state.auth || {}).user || null }
+    },
     methods: {
-        openSigninDialog: function() {
-            this.dialog = true
-        },
-        closeSigninDialog: function() {
-            this.dialog = false
+        setSigninDialog: function(value) {
+            this.dialog = value
         },
     }
 }  

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import SearchForm from '~/components/front/parallax/SearchForm.vue';
+import SearchForm from '~/components/front/form/SearchForm.vue';
 export default {
     components: {
       SearchForm
