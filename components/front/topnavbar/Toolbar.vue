@@ -1,26 +1,26 @@
 <template>
     <v-toolbar fixed flat scroll-off-screen>
-        <img src='~static/travelling-around-earth.svg' height="32px" width="32px"/>
+        <v-icon large color="pink">star</v-icon>
         <v-toolbar-title>Travelify</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
             <v-menu offset-y open-on-hover>
             <v-btn slot="activator" flat>Devenir Hôte</v-btn>
             <v-card>
-            <v-list>
-                <v-list-tile  @click="">
-                    <v-list-tile-content>
-                        <v-list-tile-title>Publier un logement</v-list-tile-title>
-                        <v-list-tile-sub-title>Gagnez jusqu'à 1 763€ par mois en hébergeant des voyageurs à Paris.</v-list-tile-sub-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action>
-                        <v-icon large color="green darken-2">business</v-icon>
-                    </v-list-tile-action>
-                </v-list-tile>
+                <v-list>
+                    <v-list-tile >
+                        <v-list-tile-content>
+                            <v-list-tile-title>Publier un logement</v-list-tile-title>
+                            <v-list-tile-sub-title>Gagnez jusqu'à 1 763€ par mois en hébergeant des voyageurs à Paris.</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                            <v-icon large color="green darken-2">business</v-icon>
+                        </v-list-tile-action>
+                    </v-list-tile>
                 </v-list>
                 <v-divider></v-divider>
                 <v-list>
-                    <v-list-tile @click="">
+                    <v-list-tile >
                         <v-list-tile-content>
                             <v-list-tile-title>Créer une expérience</v-list-tile-title>
                             <v-list-tile-sub-title>Gagnez jusqu'à 400€ par mois en proposant des activités.</v-list-tile-sub-title>
@@ -33,12 +33,12 @@
             </v-card>
             
             </v-menu>
-            <v-btn flat>Aide</v-btn>
+            <v-btn flat router nuxt href="/sejours">Aide</v-btn>
             <nuxt-link to="admin/auth" class="btn btn--flat" tag="button" v-if="!user">
                 Inscription
             </nuxt-link>
             <v-btn flat v-if="!user" @click="setSigninDialog(true)">Connexion</v-btn> 
-            <v-btn flat v-if="user">Hello, {{user.email}}</v-btn>           
+            <v-btn flat v-if="user" @click="logout()">{{ $auth.$state.loggedIn ? 'Logged In' : '' }}</v-btn>           
         </v-toolbar-items>
         <SigninDialog :dialog="dialog" v-on:setSigninDialog="setSigninDialog" />
     </v-toolbar>
@@ -57,11 +57,17 @@ export default {
         }
     },
     computed: {
-        user () { return (this.$store.state.auth || {}).user || null }
+        user () { 
+            return (this.$store.state.auth || {}).user || null 
+        }
     },
     methods: {
         setSigninDialog: function(value) {
             this.dialog = value
+        },        
+        logout() {
+            this.$toast.show('Logging out...', {icon: "fingerprint"});
+            this.$auth.logout()
         },
     }
 }  

@@ -1,42 +1,24 @@
 <template>
     <div class="searchForm">        
-        <v-container fluid grid-list-sm>
-            <v-layout row wrap>
-                <v-flex xs10 offset-xs1>
-                    <v-layout class="inline-searchForm" elevation-24>
-                        <v-flex xs5>
-                            <v-text-field
-                            id="testing"
-                            name="input-1"
-                            label="Votre recherche"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs3>
-                            <v-select
-                                :items="items"
-                                v-model="e1"
-                                label="Choisissez une langue"
-                                single-line
-                                auto
-                                hide-details
-                            ></v-select>
-                        </v-flex>
-                        <v-flex xs3>
-                            <v-select
-                            :items="states"
-                            v-model="e2"
-                            label="Select"
-                            single-line
-                            auto
-                            hide-details
-                            ></v-select>
-                        </v-flex>
-                        <v-flex xs1>
-                            <v-btn large class="searchBtn">OK</v-btn>   
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
-            </v-layout>
+        <v-container grid-list-sm align-content-center>
+            <div class="inline-searchForm">
+                <v-layout row wrap elevation-0>                    
+                    <v-flex xs12 xl5>
+                        <v-text-field id="testing" name="input-1" label="Votre recherche"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 xl3>
+                        <v-select :items="items" v-model="e1" label="Choisissez une langue" single-line auto hide-details></v-select>
+                    </v-flex>
+                    <v-flex xs12 xl3>
+                        <v-select :items="states" v-model="e2" label="Select" single-line auto hide-details></v-select>
+                    </v-flex>
+                    <v-flex xs12 xl1>
+                        <v-btn large block class="searchBtn" color="pink">
+                            <v-icon>search</v-icon>
+                        </v-btn>   
+                    </v-flex>
+                </v-layout>
+            </div>                
         </v-container>
     </div>
 </template>
@@ -45,17 +27,15 @@
   export default {
     data () {
       return {
-        e1: null,
+        e1: 'Anglais',
         e2: 'California',
-        e3: null,
-        e4: null,
         items: [
-          { text: 'Anglais' },
-          { text: 'Allemand' },
-          { text: 'Italien' },
-          { text: 'Portugais' },
-          { text: 'Espagnol' },
-          { text: 'Mandarin' }
+          'Anglais',
+          'Allemand',
+          'Italien',
+          'Portugais',
+          'Espagnol',
+          'Mandarin'
         ],
         states: [
           'Alabama', 'Alaska', 'American Samoa', 'Arizona',
@@ -83,15 +63,34 @@
 .inline-searchForm{
     /* background-color: rgba(240, 240, 240, 1); */
     background-color:#f5f5f5;
-    padding: 0px 15px 0px 5px;
+    padding: 0px 10px 2px 10px;
     border-radius: 5px;
+    width: 70%;
+    margin:0 auto;
+}
+.center{
+    text-align: center;
+    margin:0 auto;   
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+    .inline-searchForm{
+        width: 100%;
+    }
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+    .inline-searchForm{
+        width: 100%;
+    }
 }
 >>> .input-group__details {
     min-height: 8px;
 }
 
 >>> .searchBtn .btn__content{
-    background-color: #f91942;
     color:#fff;
 }
 

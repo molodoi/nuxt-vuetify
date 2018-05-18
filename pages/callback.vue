@@ -1,12 +1,17 @@
 <template>
   <div>
+    <br />
+    <br />
+    <br />
+    <br />
     <h1>You are Secure</h1>
-    <b-button to="/" variant="success">Callback</b-button>
+    <v-btn to="/" variant="success">Callback</v-btn>
   </div>
 </template>
+
 <script>
 export default {
-    middleware: ['auth']
+  middleware: 'auth'
 }
 </script>
 <style scoped>

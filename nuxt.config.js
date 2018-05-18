@@ -24,9 +24,8 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
   ],
-
   toast: {
     position: 'top-right',
     duration: 2000
@@ -48,26 +47,28 @@ module.exports = {
   ** https://medium.com/@rama41222/basic-authentication-using-auth-nuxt-js-e140859ab4c3
   */
   auth: {
-    redirect: {
-      login: '/',
-      logout: '/',
-      callback:'/'
-    },
     strategies: {
       local: {
         endpoints: {
           login: {url: '/auth', method: 'get', propertyName: 'token' },
           logout: false,
+          user: false,
         },
         tokenRequired: true,
         tokenType: 'Bearer'
       },
     },
+    redirect: {
+      login: '/admin',
+      logout: '/',
+      callback:'/'
+    },
+    reset: true,
+    logout: true
   },
   
-  
   /*
-  ** Build configuration
+  ** Build configuration 
   */
   build: {
     vendor: ['axios','vuetify'],
@@ -76,14 +77,12 @@ module.exports = {
     */
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
-        /*
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
-        */
       }
     }
   }

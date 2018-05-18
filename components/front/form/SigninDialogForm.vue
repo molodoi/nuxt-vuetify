@@ -59,13 +59,22 @@ export default {
             try {
                 this.$toast.show('Logging in...', {icon: "fingerprint"});
                 await this.$auth.loginWith('local', {
-                    data: {
+                    params: {
                         "email": this.email,
                         "password": this.password
                     }
                 }).catch(e => {
                     this.$toast.error('Failed Logging In', {icon: "error_outline"});
                 });
+                // this.$axios.$get('http://api.goandlive.localhost/auth?email='+this.email+'&password='+this.password)
+                // .then(response => {
+                //     this.$toast.success('Okay', {icon: "done"});
+                //     console.log(response)
+                // })
+                // .catch(e => {
+                //     this.$toast.success('Failed Logging In', {icon: "error_outline"});
+                // });
+
                 if (this.$auth.loggedIn) {
                     this.$toast.success('Successfully Logged In', {icon: "done"});
                 }
@@ -76,10 +85,6 @@ export default {
         },
         check(){
             console.log(this.$auth.loggedIn)
-        },
-        logout() {
-            this.$toast.show('Logging out...', {icon: "fingerprint"});
-            this.$auth.logout()
         },
     }
 }  
